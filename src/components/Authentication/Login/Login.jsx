@@ -40,7 +40,7 @@ const Login = () => {
       <img className="w-1/3 hidden md:block" src={loginLogo} alt="" />
 
       <div className="shadow-xl p-10 rounded-lg">
-        <h1 className="text-2xl text-center">Login</h1>
+        <h1 className="text-2xl text-center">Login First</h1>
         <form onSubmit={handleSubmit(handleLogin)}>
           <div className="form-control w-full">
             <label className="label">
