@@ -1,29 +1,56 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Note from "./Note";
 import noteAddLogo from "../../assets/icons/note-add-logo.png";
-import UserContext, { AuthContext } from "../../contexts/UserContext";
 import { useForm } from "react-hook-form";
+import { AuthContext } from "../../contexts/UserContext";
+import { toast } from "react-hot-toast";
 
 const Notes = () => {
-  const { user } = UserContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const [notes, setNotes] = useState([]);
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit } = useForm();
+  const [currentDateTime, setCurrentDateTime] = useState("");
 
-  const onSubmit = (data) => {
-    alert(JSON.stringify(data));
-  };
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const now = new Date();
+      const formattedDateTime = now.toLocaleString();
+      setCurrentDateTime(formattedDateTime);
+    }, 1000); // Update every second
+
+    return () => clearInterval(interval); // Clean up the interval on component unmount
+  }, []);
 
   useEffect(() => {
     fetch("http://localhost:5000/notes")
       .then((res) => res.json())
       .then((data) => setNotes(data));
   }, []);
+
+  const onSubmit = (data) => {
+    setNotes([...notes, data]);
+    fetch("http://localhost:5000/notes", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        toast.success("Successfully Note Added.");
+      })
+      .catch((err) => {
+        console.error("Error", err);
+      });
+  };
+
+  const handleNoteDelete = (deletedId) => {
+    const remainingNotes = notes.filter((note) => note._id !== deletedId);
+    setNotes(remainingNotes);
+  };
+
   return (
     <div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mx-5 md:mx-0">
@@ -43,12 +70,26 @@ const Notes = () => {
               onSubmit={handleSubmit(onSubmit)}
               method="dialog"
             >
-              <div className="form-control w-full">
+              <div className="form-control w-full hidden">
                 <label className="label">
-                  <span className="label-text">Full Name *</span>
+                  <span className="label-text">Email</span>
                 </label>
                 <input
-                  {...register("name")}
+                  {...register("email")}
+                  defaultValue={user?.email}
+                  type="email"
+                  className="input input-bordered w-full"
+                />
+              </div>
+              <div className="form-control w-full">
+                <label className="label">
+                  <span className="label-text">
+                    Created Time <span className="text-red-500">*</span>
+                  </span>
+                </label>
+                <input
+                  {...register("createdAt")}
+                  defaultValue={currentDateTime}
                   type="name"
                   required
                   className="input input-bordered w-full"
@@ -56,24 +97,39 @@ const Notes = () => {
               </div>
               <div className="form-control w-full">
                 <label className="label">
-                  <span className="label-text">Email *</span>
+                  <span className="label-text">
+                    Title <span className="text-red-500">*</span>
+                  </span>
                 </label>
                 <input
-                  {...register("email")}
+                  {...register("title")}
+                  type="name"
                   required
-                  type="email"
                   className="input input-bordered w-full"
                 />
               </div>
               <div className="form-control w-full">
                 <label className="label">
-                  <span className="label-text">Password *</span>
+                  <span className="label-text">Image URL</span>
                 </label>
                 <input
-                  {...register("password")}
-                  required
-                  type="password"
+                  {...register("bannerURL")}
+                  type="url"
                   className="input input-bordered w-full"
+                />
+              </div>
+              <div className="form-control w-full">
+                <label className="label">
+                  <span className="label-text">
+                    Description <span className="text-red-500">*</span>
+                  </span>
+                </label>
+                <textarea
+                  {...register("description")}
+                  required
+                  type="text"
+                  placeholder="Enter your message here..."
+                  className="input input-bordered w-full min-h-[100px] lg:min-h-[200px]"
                 />
               </div>
               <input className="btn btn-black w-full mt-5 mb-3" type="submit" />
@@ -84,7 +140,11 @@ const Notes = () => {
           </dialog>
         </div>
         {notes.map((note) => (
-          <Note key={note._id} note={note}></Note>
+          <Note
+            key={note.createdAt}
+            note={note}
+            handleNoteDelete={handleNoteDelete}
+          ></Note>
         ))}
       </div>
     </div>
