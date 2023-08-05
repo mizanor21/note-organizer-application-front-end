@@ -23,7 +23,8 @@ const Notes = () => {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:5000/notes")
+    const url = `http://localhost:5000/notes?email=${user?.email}`;
+    fetch(url)
       .then((res) => res.json())
       .then((data) => setNotes(data));
   }, []);
