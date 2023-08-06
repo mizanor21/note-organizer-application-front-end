@@ -1,8 +1,8 @@
 import React from "react";
-import { FaTrash } from "react-icons/fa";
+import { FaEdit, FaTrash } from "react-icons/fa";
 import { toast } from "react-hot-toast";
 
-const Note = ({ note, handleNoteDelete }) => {
+const Note = ({ note, setSelectedNote, handleNoteDelete }) => {
   const { _id, title, description, bannerURL, createdAt } = note;
 
   const handleDelete = () => {
@@ -35,6 +35,13 @@ const Note = ({ note, handleNoteDelete }) => {
         <div className="card-body border-b-4 rounded-md border-green-500">
           <h2 className="card-title justify-between">
             {title}
+            <label
+              onClick={() => setSelectedNote(note)}
+              htmlFor="note-modal"
+              className=""
+            >
+              <FaEdit></FaEdit>
+            </label>
             <button onClick={handleDelete} className="text-sm">
               <FaTrash />
             </button>

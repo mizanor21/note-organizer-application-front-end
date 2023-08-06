@@ -4,9 +4,11 @@ import noteAddLogo from "../../assets/icons/note-add-logo.png";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../contexts/UserContext";
 import { toast } from "react-hot-toast";
+import NotesModel from "./NotesModel";
 
 const Notes = () => {
   const { user } = useContext(AuthContext);
+  const [selectedNote, setSelectedNote] = useState(null);
   const [notes, setNotes] = useState([]);
 
   const { register, handleSubmit } = useForm();
@@ -17,9 +19,9 @@ const Notes = () => {
       const now = new Date();
       const formattedDateTime = now.toLocaleString();
       setCurrentDateTime(formattedDateTime);
-    }, 1000); // Update every second
+    }, 1000);
 
-    return () => clearInterval(interval); // Clean up the interval on component unmount
+    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
@@ -90,6 +92,7 @@ const Notes = () => {
                 </label>
                 <input
                   {...register("createdAt")}
+                  readOnly
                   defaultValue={currentDateTime}
                   type="name"
                   required
@@ -144,10 +147,12 @@ const Notes = () => {
           <Note
             key={note.createdAt}
             note={note}
+            setSelectedNote={setSelectedNote}
             handleNoteDelete={handleNoteDelete}
           ></Note>
         ))}
       </div>
+      {selectedNote && <NotesModel selectedNote={selectedNote}></NotesModel>}
     </div>
   );
 };
