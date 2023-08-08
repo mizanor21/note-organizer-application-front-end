@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../contexts/UserContext";
 import profile from "../../../src/assets/icons/user-demo.png";
+import logo from "../../assets/icons/logo.png";
 import { toast } from "react-hot-toast";
 
 const Navbar = () => {
@@ -14,13 +15,16 @@ const Navbar = () => {
       .catch((err) => toast.error("Error logout. Please try again"));
   };
   return (
-    <div className="bg-slate-100 border-t-4 border-green-600 shadow-lg">
+    <div className="bg-slate-100 border-t-4 border-green-600 shadow-lg lg:hidden">
       <div className="navbar container mx-auto">
         <div className="flex-1">
-          <Link className=" normal-case text-xl">Keep Notes</Link>
+          <Link className="flex justify-center items-center gap-3 normal-case text-xl my-5">
+            <img className="w-10" src={logo} alt="logo not found" />{" "}
+            <h3>Keep Notes</h3>
+          </Link>
         </div>
-        <div className="flex-none gap-2">
-          <div className="form-control">
+        <div className="flex-none gap-2 hidden lg:block">
+          <div className="form-control ">
             <input
               type="text"
               placeholder="Search"
@@ -70,6 +74,27 @@ const Navbar = () => {
             </ul>
           </div>
         </div>
+
+        <label
+          htmlFor="note-drawer"
+          tabIndex={1}
+          className="btn btn-ghost btn-circle"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M4 6h16M4 12h16M4 18h7"
+            />
+          </svg>
+        </label>
       </div>
     </div>
   );
