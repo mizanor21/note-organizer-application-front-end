@@ -35,16 +35,18 @@ const Note = ({ note, setSelectedNote, handleNoteDelete }) => {
         <div className="card-body border-b-4 rounded-md border-green-500">
           <h2 className="card-title justify-between">
             {title}
-            <label
-              onClick={() => setSelectedNote(note)}
-              htmlFor="note-modal"
-              className=""
-            >
-              <FaEdit></FaEdit>
-            </label>
-            <button onClick={handleDelete} className="text-sm">
-              <FaTrash />
-            </button>
+            <div className="flex gap-4">
+              <label
+                onClick={() => setSelectedNote(note)}
+                htmlFor="note-modal"
+                className="cursor-pointer"
+              >
+                <FaEdit></FaEdit>
+              </label>
+              <button onClick={handleDelete} className="text-sm">
+                <FaTrash />
+              </button>
+            </div>
           </h2>
           <p className="text-ellipsis line-clamp-2">{description}</p>
           <div className="card-actions justify-end">

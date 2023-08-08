@@ -54,7 +54,7 @@ const NotesModel = ({ selectedNote }) => {
                 className="input input-bordered w-full"
               />
             </div>
-            <div className="form-control w-full">
+            <div className="form-control w-full hidden">
               <label className="label">
                 <span className="label-text">
                   Update Time <span className="text-red-500">*</span>
@@ -65,8 +65,6 @@ const NotesModel = ({ selectedNote }) => {
                 defaultValue={selectedNote.createdAt} // Set the initial value based on the selected note's createdAt value
                 readOnly // Make the input field read-only
                 type="text"
-                autoFocus
-                required
                 className="input input-bordered w-full"
               />
             </div>
