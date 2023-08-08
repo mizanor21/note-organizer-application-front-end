@@ -61,7 +61,7 @@ const Notes = () => {
           {/* Open the modal using ID.showModal() method */}
           <button onClick={() => window.my_modal_2.showModal()}>
             <img
-              className="cursor-pointer hover:-translate-y-1 duration-200"
+              className="cursor-pointer w-40 hover:-translate-y-1 duration-200"
               title="Write Your Note"
               src={noteAddLogo}
               alt=""
