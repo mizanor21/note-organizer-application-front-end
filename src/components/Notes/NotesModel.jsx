@@ -10,7 +10,7 @@ const NotesModel = ({ selectedNote }) => {
 
   const onSubmit = (data) => {
     console.log(data);
-    fetch(`http://localhost:5000/notes/${_id}`, {
+    fetch(`https://notes-backend-mizanor21.vercel.app/notes/${_id}`, {
       method: "PATCH",
       headers: {
         "Content-type": "application/json",

@@ -33,7 +33,7 @@ const Notes = () => {
   }, []);
 
   useEffect(() => {
-    const url = `http://localhost:5000/notes?email=${user?.email}`;
+    const url = `https://notes-backend-mizanor21.vercel.app/notes?email=${user?.email}`;
     fetch(url)
       .then((res) => res.json())
       .then((data) => setNotes(data));
@@ -41,7 +41,7 @@ const Notes = () => {
 
   const onSubmit = (data) => {
     setNotes([...notes, data]);
-    fetch("http://localhost:5000/notes", {
+    fetch("https://notes-backend-mizanor21.vercel.app/notes", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

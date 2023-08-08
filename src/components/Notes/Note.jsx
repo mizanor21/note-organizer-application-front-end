@@ -8,7 +8,7 @@ const Note = ({ note, setSelectedNote, handleNoteDelete }) => {
   const handleDelete = () => {
     const agree = window.confirm(`Are you sure you want to delete?`);
     if (agree) {
-      fetch(`http://localhost:5000/note/${_id}`, {
+      fetch(`https://notes-backend-mizanor21.vercel.app/note/${_id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())
