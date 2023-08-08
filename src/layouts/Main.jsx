@@ -60,6 +60,10 @@ const Main = () => {
                 >
                   {user ? (
                     <div className="">
+                      <div className="flex justify-center my-3">
+                        <li>{user?.email}</li>
+                      </div>
+                      <hr />
                       <li>
                         <Link className="justify-between">
                           Profile
