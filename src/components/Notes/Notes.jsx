@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import Note from "./Note";
-import noteAddLogo from "../../assets/icons/note-add-logo.png";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../contexts/UserContext";
 import { toast } from "react-hot-toast";
 import NotesModel from "./NotesModel";
+import { FaPen } from "react-icons/fa";
 
 const Notes = () => {
   const { user } = useContext(AuthContext);
@@ -55,94 +55,95 @@ const Notes = () => {
   };
 
   return (
-    <div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mx-5 md:mx-20">
-        <div className="flex justify-center">
-          {/* Open the modal using ID.showModal() method */}
-          <button onClick={() => window.my_modal_2.showModal()}>
-            <img
-              className="cursor-pointer w-40 hover:-translate-y-1 duration-200"
-              title="Write Your Note"
-              src={noteAddLogo}
-              alt=""
-            />
-          </button>
-          <dialog id="my_modal_2" className="modal">
-            <form
-              className="bg-white p-10 modal-box"
-              onSubmit={handleSubmit(onSubmit)}
-              method="dialog"
-            >
-              <div className="form-control w-full hidden">
-                <label className="label">
-                  <span className="label-text">Email</span>
-                </label>
-                <input
-                  {...register("email")}
-                  defaultValue={user?.email}
-                  type="email"
-                  className="input input-bordered w-full"
-                />
-              </div>
-              <div className="form-control w-full">
-                <label className="label">
-                  <span className="label-text">
-                    Created Time <span className="text-red-500">*</span>
-                  </span>
-                </label>
-                <input
-                  {...register("createdAt")}
-                  readOnly
-                  defaultValue={currentDateTime}
-                  type="name"
-                  required
-                  className="input input-bordered w-full"
-                />
-              </div>
-              <div className="form-control w-full">
-                <label className="label">
-                  <span className="label-text">
-                    Title <span className="text-red-500">*</span>
-                  </span>
-                </label>
-                <input
-                  {...register("title")}
-                  type="name"
-                  required
-                  className="input input-bordered w-full"
-                />
-              </div>
-              <div className="form-control w-full">
-                <label className="label">
-                  <span className="label-text">Image URL</span>
-                </label>
-                <input
-                  {...register("bannerURL")}
-                  type="url"
-                  className="input input-bordered w-full"
-                />
-              </div>
-              <div className="form-control w-full">
-                <label className="label">
-                  <span className="label-text">
-                    Description <span className="text-red-500">*</span>
-                  </span>
-                </label>
-                <textarea
-                  {...register("description")}
-                  required
-                  type="text"
-                  placeholder="Enter your message here..."
-                  className="input input-bordered w-full min-h-[100px] lg:min-h-[200px]"
-                />
-              </div>
-              <input className="btn btn-black w-full mt-5 mb-3" type="submit" />
-            </form>
-            <form method="dialog" className="modal-backdrop">
-              <button>close</button>
-            </form>
-          </dialog>
-        </div>
+    <div className="mx-5 md:mx-20">
+      <div className=" mb-5 ">
+        {/* Open the modal using ID.showModal() method */}
+        <button
+          className="w-full"
+          onClick={() => window.my_modal_2.showModal()}
+        >
+          <div className="flex items-center gap-3 border-2 rounded-lg pl-5 py-6">
+            <FaPen></FaPen>
+            <p>Write Your Note</p>
+          </div>
+        </button>
+        <dialog id="my_modal_2" className="modal">
+          <form
+            className="bg-white p-10 modal-box"
+            onSubmit={handleSubmit(onSubmit)}
+            method="dialog"
+          >
+            <div className="form-control w-full hidden">
+              <label className="label">
+                <span className="label-text">Email</span>
+              </label>
+              <input
+                {...register("email")}
+                defaultValue={user?.email}
+                type="email"
+                className="input input-bordered w-full"
+              />
+            </div>
+            <div className="form-control w-full">
+              <label className="label">
+                <span className="label-text">
+                  Created Time <span className="text-red-500">*</span>
+                </span>
+              </label>
+              <input
+                {...register("createdAt")}
+                readOnly
+                defaultValue={currentDateTime}
+                type="name"
+                required
+                className="input input-bordered w-full"
+              />
+            </div>
+            <div className="form-control w-full">
+              <label className="label">
+                <span className="label-text">
+                  Title <span className="text-red-500">*</span>
+                </span>
+              </label>
+              <input
+                {...register("title")}
+                type="name"
+                required
+                className="input input-bordered w-full"
+              />
+            </div>
+            <div className="form-control w-full">
+              <label className="label">
+                <span className="label-text">Image URL</span>
+              </label>
+              <input
+                {...register("bannerURL")}
+                type="url"
+                className="input input-bordered w-full"
+              />
+            </div>
+            <div className="form-control w-full">
+              <label className="label">
+                <span className="label-text">
+                  Description <span className="text-red-500">*</span>
+                </span>
+              </label>
+              <textarea
+                {...register("description")}
+                required
+                type="text"
+                placeholder="Enter your message here..."
+                className="input input-bordered w-full min-h-[100px] lg:min-h-[200px]"
+              />
+            </div>
+            <input className="btn btn-black w-full mt-5 mb-3" type="submit" />
+          </form>
+          <form method="dialog" className="modal-backdrop">
+            <button>close</button>
+          </form>
+        </dialog>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {notes.map((note) => (
           <Note
             key={note.createdAt}
