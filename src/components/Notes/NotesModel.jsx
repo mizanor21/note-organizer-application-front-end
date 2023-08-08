@@ -24,11 +24,11 @@ const NotesModel = ({ selectedNote }) => {
         return res.json();
       })
       .then((data) => {
-        toast.success("Data Updated!");
+        toast.success("Data Updated, Reload UI.");
         console.log(data); // Data returned from the server
       })
       .catch((error) => {
-        console.error("Error:", error);
+        toast.error("Error:", error);
       });
   };
 

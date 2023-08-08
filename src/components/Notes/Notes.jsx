@@ -162,16 +162,20 @@ const Notes = () => {
           </form>
         </dialog>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        {notes.map((note) => (
-          <Note
-            key={note?._id}
-            note={note}
-            setSelectedNote={setSelectedNote}
-            handleNoteDelete={handleNoteDelete}
-          ></Note>
-        ))}
-      </div>
+      {notes.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {notes.map((note) => (
+            <Note
+              key={note?._id}
+              note={note}
+              setSelectedNote={setSelectedNote}
+              handleNoteDelete={handleNoteDelete}
+            ></Note>
+          ))}
+        </div>
+      ) : (
+        <p>Notes you add appear here</p>
+      )}
       {selectedNote && <NotesModel selectedNote={selectedNote}></NotesModel>}
     </div>
   );

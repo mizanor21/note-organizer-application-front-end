@@ -98,14 +98,14 @@ const Main = () => {
                 className="input glass h-8"
               />
             </div> */}
-            <div className="mt-5">
+            {/* <div className="mt-5">
               <li>
                 <a>Sidebar Item 1</a>
               </li>
               <li>
                 <a>Sidebar Item 2</a>
               </li>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
