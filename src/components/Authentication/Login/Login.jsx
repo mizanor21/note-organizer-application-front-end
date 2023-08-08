@@ -74,13 +74,13 @@ const Login = () => {
           </div>
         </form>
 
-        <div className="divider">OR</div>
+        {/* <div className="divider">OR</div>
         <div className="flex justify-center w-full">
           <FaGoogle
             onClick={handleGoogleSignIn}
             className="text-2xl cursor-pointer"
           />
-        </div>
+        </div> */}
       </div>
     </div>
   );
