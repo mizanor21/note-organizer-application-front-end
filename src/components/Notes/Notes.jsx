@@ -56,7 +56,7 @@ const Notes = () => {
 
   return (
     <div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mx-5 md:mx-0">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mx-5 md:mx-20">
         <div className="flex justify-center">
           {/* Open the modal using ID.showModal() method */}
           <button onClick={() => window.my_modal_2.showModal()}>
