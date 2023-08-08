@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef, useState } from "react";
 import Navbar from "../components/Navbar/Navbar";
 import { Link, Outlet } from "react-router-dom";
 import Footer from "../components/Footer/Footer";
@@ -17,6 +17,7 @@ const Main = () => {
       })
       .catch((err) => toast.error("Error logout. Please try again"));
   };
+
   return (
     <div className="">
       <Navbar></Navbar>
@@ -87,13 +88,16 @@ const Main = () => {
                 </ul>
               </div>
             </div>
-            <div className="form-control">
+            <hr />
+            {/* <div className="form-control">
               <input
+                onChange={handleSearch}
+                ref={searchRef}
                 type="text"
                 placeholder="Search"
                 className="input glass h-8"
               />
-            </div>
+            </div> */}
             <div className="mt-5">
               <li>
                 <a>Sidebar Item 1</a>

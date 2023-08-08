@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import Note from "./Note";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../contexts/UserContext";
 import { toast } from "react-hot-toast";
 import NotesModel from "./NotesModel";
-import { FaPen } from "react-icons/fa";
+import { FaPen, FaSearch } from "react-icons/fa";
 
 const Notes = () => {
   const { user } = useContext(AuthContext);
@@ -13,6 +13,14 @@ const Notes = () => {
 
   const { register, handleSubmit } = useForm();
   const [currentDateTime, setCurrentDateTime] = useState("");
+
+  const searchRef = useRef();
+  const [search, setSearch] = useState("");
+
+  const handleSearch = () => {
+    setSearch(searchRef.current.value);
+    toast.success("Future implement!");
+  };
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -58,15 +66,26 @@ const Notes = () => {
     <div className="mx-5 md:mx-20">
       <div className=" mb-5 ">
         {/* Open the modal using ID.showModal() method */}
-        <button
-          className="w-full"
-          onClick={() => window.my_modal_2.showModal()}
-        >
-          <div className="flex items-center gap-3 border-2 rounded-lg pl-5 py-6">
-            <FaPen></FaPen>
-            <p>Write Your Note</p>
-          </div>
-        </button>
+        <div className="flex items-center gap-5">
+          <button
+            className="w-full"
+            onClick={() => window.my_modal_2.showModal()}
+          >
+            <div className="flex items-center gap-3 border-2 rounded-lg pl-5 py-6">
+              <FaPen></FaPen>
+              <p>Write Your Note</p>
+            </div>
+          </button>
+          <input
+            type="search"
+            ref={searchRef}
+            placeholder="Search Note..."
+            className="input input-bordered input-lg border-2"
+          />
+          <button onClick={handleSearch} className="btn">
+            Search
+          </button>
+        </div>
         <dialog id="my_modal_2" className="modal">
           <form
             className="bg-white p-10 modal-box"
@@ -146,7 +165,7 @@ const Notes = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {notes.map((note) => (
           <Note
-            key={note.createdAt}
+            key={note?._id}
             note={note}
             setSelectedNote={setSelectedNote}
             handleNoteDelete={handleNoteDelete}
